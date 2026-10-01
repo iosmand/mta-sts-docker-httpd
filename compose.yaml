@@ -11,4 +11,6 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 6M # minimum memory limit 6M
+          # httpd itself uses ~3.5 MB, but runc's init runs inside the same cgroup while the
+          # container starts and needs ~7.5 MB on Docker 29: with 6M it was OOM-killed at start.
+          memory: 32M
